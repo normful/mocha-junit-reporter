@@ -65,7 +65,7 @@ function MochaJUnitReporter(runner, options) {
 
   this._runner.on('suite', function(suite) {
     if (suite.root) {
-      suite.title = 'Root Suite';
+      suite.title = '';
     }
 
     if (!isInvalidSuite(suite)) {
@@ -126,7 +126,7 @@ MochaJUnitReporter.prototype.getTestcaseData = function(test, err) {
       _attr: {
         name: test.fullTitle(),
         time: (typeof test.duration === 'undefined') ? 0 : test.duration / 1000,
-        classname: test.title
+        classname: test.fullTitle().split(' ')[0]
       }
     }]
   };
