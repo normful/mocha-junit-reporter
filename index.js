@@ -63,14 +63,6 @@ function MochaJUnitReporter(runner, options) {
   // get functionality from the Base reporter
   Base.call(this, runner);
 
-  // remove old results
-  this._runner.on('start', function() {
-    if (fs.existsSync(this._options.mochaFile)) {
-      debug('removing report file', this._options.mochaFile);
-      fs.unlinkSync(this._options.mochaFile);
-    }
-  }.bind(this));
-
   this._runner.on('suite', function(suite) {
     if (suite.root) {
       suite.title = 'Root Suite';
@@ -181,7 +173,6 @@ MochaJUnitReporter.prototype.flush = function(testsuites){
 MochaJUnitReporter.prototype.getXml = function(testsuites) {
   var totalSuitesTime = 0;
   var totalTests = 0;
-  var stats = this._runner.stats;
 
   testsuites.forEach(function(suite) {
     var _suiteAttr = suite.testsuite[0]._attr;
@@ -207,22 +198,7 @@ MochaJUnitReporter.prototype.getXml = function(testsuites) {
     totalTests += _suiteAttr.tests;
   });
 
-  var rootSuite = {
-    _attr: {
-      name: 'Mocha Tests',
-      time: totalSuitesTime,
-      tests: totalTests,
-      failures: stats.failures
-    }
-  };
-
-  if (stats.pending) {
-    rootSuite._attr.skipped = stats.pending;
-  }
-
-  return xml({
-    testsuites: [ rootSuite ].concat(testsuites)
-  }, { declaration: true, indent: '  ' });
+  return xml(testsuites, { indent: '  ' });
 };
 
 /**
@@ -235,7 +211,7 @@ MochaJUnitReporter.prototype.writeXmlToDisk = function(xml, filePath){
     debug('writing file to', filePath);
     mkdirp.sync(path.dirname(filePath));
 
-    fs.writeFileSync(filePath, xml, 'utf-8');
+    fs.appendFileSync(filePath, xml, 'utf-8');
     debug('results written successfully');
   }
 };
