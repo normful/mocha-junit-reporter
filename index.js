@@ -35,6 +35,7 @@ function fullSuiteTitle(suite, options) {
     title.unshift(parent.title);
     parent = parent.parent;
   }
+  title.shift();
 
   return title.join(options.suiteTitleSeparatedBy);
 }
