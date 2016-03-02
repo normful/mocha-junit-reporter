@@ -18,7 +18,7 @@ function configureDefaults(options) {
   options = options.reporterOptions || {};
   options.mochaFile = options.mochaFile || process.env.MOCHA_FILE || 'test-results.xml';
   options.toConsole = !!options.toConsole;
-  options.suiteTitleSeparedBy = options.suiteTitleSeparedBy || ' ';
+  options.suiteTitleSeparatedBy = options.suiteTitleSeparatedBy || ' ';
 
   return options;
 }
@@ -36,7 +36,7 @@ function fullSuiteTitle(suite, options) {
     parent = parent.parent;
   }
 
-  return title.join(options.suiteTitleSeparedBy);
+  return title.join(options.suiteTitleSeparatedBy);
 }
 
 function isInvalidSuite(suite) {

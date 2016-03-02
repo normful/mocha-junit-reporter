@@ -46,7 +46,7 @@ var mocha = new Mocha({
     reporter: 'mocha-junit-reporter',
     reporterOptions: {
         useFullSuiteTitle: true,
-        suiteTitleSeparedBy: '.' // suites separator, default is space (' ')
+        suiteTitleSeparatedBy: '.' // suites separator, default is space (' ')
     }
 });
 ```

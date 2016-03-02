@@ -193,8 +193,8 @@ describe('mocha-junit-reporter', function() {
       expect(suiteName(reporter.suites[1])).to.equal(suiteTitles.join(' '));
     });
 
-    it('generates full suite title separated by "suiteTitleSeparedBy" option', function() {
-      var reporter = configureReporter({useFullSuiteTitle: true, suiteTitleSeparedBy: '.'});
+    it('generates full suite title separated by "suiteTitleSeparatedBy" option', function() {
+      var reporter = configureReporter({useFullSuiteTitle: true, suiteTitleSeparatedBy: '.'});
 
       expect(suiteName(reporter.suites[1])).to.equal(suiteTitles.join('.'));
     });
